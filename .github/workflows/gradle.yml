@@ -1,0 +1,59 @@
+name: Build and Deploy Minecraft Plugin
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Java (Gradle requires Java)
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'  # Use Eclipse Temurin JDK
+          java-version: '17'       # Adjust this to your Minecraft plugin's required Java version
+
+      # Step 3: Grant execute permissions for Gradle
+      - name: Grant execute permissions for Gradle
+        run: chmod +x gradlew
+
+      # Step 4: Build the plugin using Gradle
+      - name: Build Plugin
+        run: ./gradlew build
+
+      # Step 5: Deploy the plugin to the Minecraft server using SSH
+      - name: Deploy Plugin to Server
+        if: success()
+        run: |
+          # Start SSH agent
+          eval $(ssh-agent -s)
+
+          # Add SSH key from GitHub Secrets
+          ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")
+
+          # Define variables (change these to match your setup)
+          SERVER_USER="crafty"             # Change to your server's SSH username
+          SERVER_IP="paladinwolfi.ch"      # Change to your server's IP address
+          SERVER_PLUGIN_DIR="/var/opt/minecraft/crafty/crafty-4/servers/0546c787-63dd-4e50-81dd-390e156a44ab/plugins/"   # Change to your Minecraft server's plugins folder
+
+          # Find the built JAR file (adjust if your project outputs differently)
+          PLUGIN_JAR=$(find build/libs -name "*.jar" | head -n 1)
+
+          # Upload the plugin JAR to the server
+          scp -o StrictHostKeyChecking=no "$PLUGIN_JAR" "$SERVER_USER@$SERVER_IP:$SERVER_PLUGIN_DIR"
+
+#          # Restart the Minecraft server (if necessary)
+#          ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" << 'EOF'
+#           # OPTIONAL: Restart the Minecraft server (modify based on how you manage your server)
+#          screen -S minecraft -X stuff "stop$(printf '\r')"
+#         sleep 5
+#        screen -dmS minecraft java -Xms1G -Xmx2G -jar server.jar nogui
+#         EOF
