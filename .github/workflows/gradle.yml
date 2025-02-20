@@ -26,11 +26,7 @@ jobs:
 
       - name: Build Plugin with Gradle
         run: ./gradlew build --stacktrace
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:      
+ 
       - name: Deploy Plugin to Server
         if: success()
         run: |
