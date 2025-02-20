@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Plugin.SpigotPlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Plugin.SpigotPlugin.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Plugins.SpigotPlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Plugins.SpigotPlugin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/SpigotPlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/SpigotPlugin.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ch.paladinwolfi.SpigotPlugin.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ch.paladinwolfi.SpigotPlugin.main.iml" />
     </modules>
