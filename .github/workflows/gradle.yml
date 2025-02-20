@@ -10,20 +10,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Java (Gradle requires Java)
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'  # Use Eclipse Temurin JDK
-          java-version: '17'       # Adjust this to your Minecraft plugin's required Java version
+          distribution: 'temurin'
+          java-version: '17'
 
-      # Step 3: Grant execute permissions for Gradle
-      - name: Grant execute permissions for Gradle
+      - name: Grant execute permissions to Gradle Wrapper
         run: chmod +x gradlew
+
+      - name: Build Plugin with Gradle
+        run: ./gradlew build --stacktrace
 
       # Step 4: Build the plugin using Gradle
       - name: Build Plugin
