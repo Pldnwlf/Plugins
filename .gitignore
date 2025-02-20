@@ -27,5 +27,15 @@ hs_err_pid*
 replay_pid*
 
 
-*.idea/
-*.gardle/
+# Ignore Gradle-related files
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar  # Keep the Gradle wrapper
+
+# Ignore IDE-specific files (IntelliJ IDEA)
+.idea/
+
+# Ignore build outputs
+build/
+
+# Ignore workspace files
+*.iml
