@@ -27,7 +27,10 @@ jobs:
       - name: Build Plugin with Gradle
         run: ./gradlew build --stacktrace
 
-      # Step 5: Deploy the plugin to the Minecraft server using SSH
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:      
       - name: Deploy Plugin to Server
         if: success()
         run: |
