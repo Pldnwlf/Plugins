@@ -26,7 +26,11 @@ jobs:
 
       - name: Build Plugin with Gradle
         run: ./gradlew build --stacktrace
- 
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    
       - name: Deploy Plugin to Server
         if: success()
         run: |
@@ -46,11 +50,3 @@ jobs:
 
           # Upload the plugin JAR to the server
           scp -o StrictHostKeyChecking=no "$PLUGIN_JAR" "$SERVER_USER@$SERVER_IP:$SERVER_PLUGIN_DIR"
-
-#          # Restart the Minecraft server (if necessary)
-#          ssh -o StrictHostKeyChecking=no "$SERVER_USER@$SERVER_IP" << 'EOF'
-#           # OPTIONAL: Restart the Minecraft server (modify based on how you manage your server)
-#          screen -S minecraft -X stuff "stop$(printf '\r')"
-#         sleep 5
-#        screen -dmS minecraft java -Xms1G -Xmx2G -jar server.jar nogui
-#         EOF
