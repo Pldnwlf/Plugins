@@ -1,8 +1,0 @@
-name: SpigotPlugin
-main: ch.paladinwolfi.SpigotPlugin
-version: 1.0
-api-version: 1.20
-commands:
-  jump:
-    description: "Teleportiert dich 10 Blöcke nach oben"
-    usage: "/jump"
